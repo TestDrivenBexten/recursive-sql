@@ -22,7 +22,7 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Pe
 BEGIN
     CREATE TABLE Person (
         PersonID INT IDENTITY(1,1) PRIMARY KEY,
-        FirstName NVARCHAR(50) NOT NULL,
+        FirstName NVARCHAR(50) NOT NULL UNIQUE,
         ParentID INT NULL,
         CONSTRAINT FK_Person_Parent FOREIGN KEY (ParentID) REFERENCES Person(PersonID)
     );
