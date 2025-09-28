@@ -12,7 +12,7 @@ fi
 sleep 30
 
 # Run database creation script
-/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -i /opt/mssql/scripts/create-database.sql
+/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -i /opt/mssql/scripts/create-database.sql -C
 
 # Keep SQL Server running in foreground
 wait

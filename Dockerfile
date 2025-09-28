@@ -23,6 +23,9 @@ RUN mkdir -p /opt/mssql/scripts
 # Make startup script executable
 RUN chmod +x /opt/mssql/bin/start-sqlserver.sh
 
+# Convert Windows line endings to Unix line endings
+RUN sed -i 's/\r$//' /opt/mssql/bin/start-sqlserver.sh
+
 # Switch back to mssql user
 USER mssql
 
