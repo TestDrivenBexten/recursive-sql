@@ -49,3 +49,37 @@ INSERT INTO Person (FirstName, ParentID) VALUES ('Baal', (SELECT PersonID FROM P
 
 PRINT 'Additional genealogy data inserted successfully.';
 GO
+
+-- Stored procedure to insert a genealogy of length n
+CREATE PROCEDURE InsertGenealogy
+    @Length INT,
+    @RootName NVARCHAR(50) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    DECLARE @Counter INT = 1;
+    DECLARE @CurrentParentID INT = NULL;
+    DECLARE @CurrentName NVARCHAR(50);
+    
+    -- Generate root name if not provided
+    IF @RootName IS NULL
+        SET @RootName = 'Person_';
+    
+    -- Insert root person
+    INSERT INTO Person (FirstName, ParentID) VALUES (@RootName, NULL);
+    SET @CurrentParentID = SCOPE_IDENTITY();
+    
+    -- Insert descendants
+    WHILE @Counter < @Length
+    BEGIN
+        SET @CurrentName = @RootName + '_Gen' + CAST(@Counter AS VARCHAR(10));
+        
+        INSERT INTO Person (FirstName, ParentID) VALUES (@CurrentName, @CurrentParentID);
+        SET @CurrentParentID = SCOPE_IDENTITY();
+        SET @Counter = @Counter + 1;
+    END
+    
+    PRINT 'Genealogy of length ' + CAST(@Length AS VARCHAR(10)) + ' created starting with ' + @RootName;
+END
+GO

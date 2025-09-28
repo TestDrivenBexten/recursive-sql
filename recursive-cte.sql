@@ -35,4 +35,5 @@ SELECT
     RootPersonName AS TopParent,
     Level AS GenerationLevel
 FROM AncestorCTE
-ORDER BY RootPersonID, Level, PersonID;
+ORDER BY RootPersonID, Level, PersonID
+OPTION (MAXRECURSION 12000);
