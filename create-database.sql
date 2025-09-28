@@ -42,4 +42,10 @@ INSERT INTO Person (FirstName, ParentID) VALUES ('Ea', (SELECT PersonID FROM Per
 INSERT INTO Person (FirstName, ParentID) VALUES ('Marduk', (SELECT PersonID FROM Person WHERE FirstName = 'Ea'));
 
 PRINT 'Genealogy data inserted successfully.';
+
+-- Insert additional genealogy data: El -> Baal
+INSERT INTO Person (FirstName, ParentID) VALUES ('El', NULL);
+INSERT INTO Person (FirstName, ParentID) VALUES ('Baal', (SELECT PersonID FROM Person WHERE FirstName = 'El'));
+
+PRINT 'Additional genealogy data inserted successfully.';
 GO
