@@ -12,6 +12,9 @@ CREATE TABLE #AncestorTemp (
     Level INT
 );
 
+-- Create index on PersonID for better performance
+CREATE CLUSTERED INDEX IX_AncestorTemp_PersonID ON #AncestorTemp (PersonID);
+
 -- Insert root ancestors (persons with no parent)
 INSERT INTO #AncestorTemp (PersonID, FirstName, ParentID, RootPersonID, RootPersonName, Level)
 SELECT PersonID, FirstName, ParentID, PersonID, FirstName, 0
