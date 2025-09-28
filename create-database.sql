@@ -33,3 +33,13 @@ BEGIN
     PRINT 'Person table already exists.';
 END
 GO
+
+-- Insert genealogy data: Apsu -> Lahmu -> Anshar -> Ea -> Marduk
+INSERT INTO Person (FirstName, ParentID) VALUES ('Apsu', NULL);
+INSERT INTO Person (FirstName, ParentID) VALUES ('Lahmu', (SELECT PersonID FROM Person WHERE FirstName = 'Apsu'));
+INSERT INTO Person (FirstName, ParentID) VALUES ('Anshar', (SELECT PersonID FROM Person WHERE FirstName = 'Lahmu'));
+INSERT INTO Person (FirstName, ParentID) VALUES ('Ea', (SELECT PersonID FROM Person WHERE FirstName = 'Anshar'));
+INSERT INTO Person (FirstName, ParentID) VALUES ('Marduk', (SELECT PersonID FROM Person WHERE FirstName = 'Ea'));
+
+PRINT 'Genealogy data inserted successfully.';
+GO
